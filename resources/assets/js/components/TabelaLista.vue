@@ -1,6 +1,11 @@
 <template>
-<div>
-   <a v-if="criar" v-bind:href="url">Criar</a>
+<div>   
+    <div class="form-inline">
+        <a v-if="criar" v-bind:href="criar">Criar</a>
+        <div class="form-group pull-right">
+            <input type="search" class="form-control" placeholder="Buscar" v-model="buscar">            
+        </div>
+    </div>
 
         <table class="table table-striped table-hover">
             <thead>
@@ -10,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item,index) in itens">
+                <tr v-for="(item,index) in lista">
                     <td v-for="i in item">{{i}}</td>
                     <td v-if="detalhe || editar || deletar">
                         <form v-bind:id="index" v-if="deletar && token" action="" method="POST">
@@ -37,12 +42,29 @@
 </template>
 
 <script>
-    export default {
-       props:['titulos','itens','criar','detalhe','editar','deletar','token'],
-       methods:{
-           executaForm(index){
-               document.getElementById(index).submit();               
-           }
-       }
+export default {
+  props: ["titulos", "itens", "criar", "detalhe", "editar", "deletar", "token"],
+  data() {
+    return {
+      buscar: ""
+    };
+  },
+  methods: {
+    executaForm(index) {
+      document.getElementById(index).submit();
     }
+  },
+  computed:{
+      lista: function(){          
+          return this.itens.filter(res => {
+              for (let i = 0; i < res.length; i++) {
+              //A concatenação (res[i] + "") serve para garantir caso exista um campo do tipo inteiro para ser tratado como string
+              if ((res[i] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
+                return true
+              }
+            }            
+          });          
+      }
+  }
+};
 </script>
