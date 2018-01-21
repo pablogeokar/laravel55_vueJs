@@ -7,7 +7,7 @@
     <painel titulo="Dashboard">
         <!-- Componente CAIXA -->
         <div class="col-md-4">        
-            <caixa titulo="Artigos" qtd="80" cor="#2980b9" url="#" icone="ion ion-pie-graph"></caixa>
+            <caixa titulo="Artigos" qtd="80" cor="#2980b9" url="{{route('artigos.index')}}" icone="ion ion-pie-graph"></caixa>
         </div>
         <!-- Componente CAIXA -->
         <div class="col-md-4">        
