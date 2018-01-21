@@ -1398,7 +1398,7 @@ window.Vue = __webpack_require__(38);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('pagina', __webpack_require__(65));
 Vue.component('topo', __webpack_require__(41));
 Vue.component('painel', __webpack_require__(44));
 Vue.component('caixa', __webpack_require__(50));
@@ -43735,7 +43735,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n.bg-aqua {\r\n    background-color: #00c0ef !important;\n}\n.small-box {\r\n    border-radius: 2px;\r\n    position: relative;\r\n    display: block;\r\n    margin-bottom: 20px;\r\n    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);\r\n            box-shadow: 0 1px 1px rgba(0,0,0,0.1);\n}\n.small-box > .inner {\r\n    padding: 10px;\n}\n.small-box h3, .small-box p {\r\n    z-index: 5;\n}\n.small-box h3 {\r\n    font-size: 38px;\r\n    font-weight: bold;\r\n    margin: 0 0 10px 0;\r\n    white-space: nowrap;\r\n    padding: 0;\n}\n.small-box p {\r\n    font-size: 15px;\n}\n.small-box > .small-box-footer {\r\n    position: relative;\r\n    text-align: center;\r\n    padding: 3px 0;\r\n    color: #fff;\r\n    color: rgba(255,255,255,0.8);\r\n    display: block;\r\n    z-index: 10;\r\n    background: rgba(0,0,0,0.1);\r\n    text-decoration: none;\n}\n.small-box .icon {\r\n    -webkit-transition: all .3s linear;\r\n    transition: all .3s linear;\r\n    position: absolute;\r\n    top: -10px;\r\n    right: 10px;\r\n    z-index: 0;\r\n    font-size: 90px;\r\n    color: rgba(0,0,0,0.15);\n}\na {\r\n    color: #3c8dbc;\n}\r\n", ""]);
+exports.push([module.i, "\n.bg-aqua {\r\n    background-color: #00c0ef !important;\n}\n.small-box {\r\n    border-radius: 2px;\r\n    position: relative;\r\n    display: block;\r\n    margin-bottom: 20px;\r\n    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);\r\n            box-shadow: 0 1px 1px rgba(0,0,0,0.1);\r\n    color: #FFF;\n}\n.small-box > .inner {\r\n    padding: 10px;\n}\n.small-box h3, .small-box p {\r\n    z-index: 5;\n}\n.small-box h3 {\r\n    font-size: 38px;\r\n    font-weight: bold;\r\n    margin: 0 0 10px 0;\r\n    white-space: nowrap;\r\n    padding: 0;\n}\n.small-box p {\r\n    font-size: 15px;\n}\n.small-box > .small-box-footer {\r\n    position: relative;\r\n    text-align: center;\r\n    padding: 3px 0;\r\n    color: #fff;\r\n    color: rgba(255,255,255,0.8);\r\n    display: block;\r\n    z-index: 10;\r\n    background: rgba(0,0,0,0.1);\r\n    text-decoration: none;\n}\n.small-box .icon {\r\n    -webkit-transition: all .3s linear;\r\n    transition: all .3s linear;\r\n    position: absolute;\r\n    top: -10px;\r\n    right: 10px;\r\n    z-index: 0;\r\n    font-size: 90px;\r\n    color: rgba(0,0,0,0.15);\n}\na {\r\n    color: #3c8dbc;\n}\n.small-box:hover {\r\n    text-decoration: none;\r\n    color: #FFF;\n}\n.small-box:hover .icon {\r\n    font-size: 95px;\n}\n.small-box > .small-box-footer:hover {\r\n    color: #fff;\r\n    background: rgba(0,0,0,0.15);\n}\r\n", ""]);
 
 // exports
 
@@ -43764,7 +43764,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['']
+    props: ['qtd', 'titulo', 'url', 'cor', 'icone'],
+    computed: {
+        defineCor: function defineCor() {
+            return "background-color: " + this.cor + " !important;";
+        }
+    }
 });
 
 /***/ }),
@@ -43775,31 +43780,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "small-box bg-aqua" }, [
-      _c("div", { staticClass: "inner" }, [
-        _c("h3", [_vm._v("150")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("New Orders")])
-      ]),
+  return _c("div", { staticClass: "small-box", style: _vm.defineCor }, [
+    _c("div", { staticClass: "inner" }, [
+      _c("h3", [_vm._v(_vm._s(_vm.qtd))]),
       _vm._v(" "),
-      _c("div", { staticClass: "icon" }, [
-        _c("i", { staticClass: "fa fa-shopping-cart" })
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-        _vm._v("\r\n        More info \r\n        "),
-        _c("i", { staticClass: "fa fa-arrow-circle-right" })
-      ])
+      _c("p", [_vm._v(_vm._s(_vm.titulo))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "icon" }, [_c("i", { class: _vm.icone })]),
+    _vm._v(" "),
+    _c("a", { staticClass: "small-box-footer", attrs: { href: _vm.url } }, [
+      _vm._v("\r\n        Ver mais \r\n        "),
+      _c("i", { staticClass: "fa fa-arrow-circle-right" })
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -43814,6 +43810,122 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(66)
+/* template */
+var __vue_template__ = __webpack_require__(67)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Pagina.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19a71286", Component.options)
+  } else {
+    hotAPI.reload("data-v-19a71286", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['tamanho'],
+    computed: {
+        defineTamanho: function defineTamanho() {
+            if (this.tamanho >= 12) {
+                return "col-md-12";
+            }
+            if (this.tamanho <= 2) {
+                return "col-md-2 col-md-offset-5";
+            }
+            if (this.tamanho % 2 == 0) {
+                return "col-md-" + this.tamanho + " col-md-offset-" + (12 - this.tamanho) / 2;
+            } else {
+                return "col-md-" + (parseInt(this.tamanho) + 1) + " col-md-offset-" + (12 - (parseInt(this.tamanho) + 1)) / 2;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { class: _vm.defineTamanho }, [_vm._t("default")], 2)
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-19a71286", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
