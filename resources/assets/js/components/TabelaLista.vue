@@ -10,7 +10,7 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th v-for="titulo in titulos">{{titulo}}</th>
+                    <th style="cursor:pointer" v-on:click="ordenaColuna(index)" v-for="(titulo, index) in titulos">{{titulo}}</th>
                      <th v-if="detalhe || editar || deletar">Ação</th>
                 </tr>
             </thead>
@@ -43,28 +43,59 @@
 
 <script>
 export default {
-  props: ["titulos", "itens", "criar", "detalhe", "editar", "deletar", "token"],
+  props: ["titulos", "itens", "criar", "detalhe", "editar", "deletar", "token", "ordem", "ordemcol"],
   data() {
     return {
-      buscar: ""
+      buscar: "",
+      ordemAux: this.ordem || "asc",
+      ordemAuxCol: this.ordemCol || 0
     };
   },
   methods: {
     executaForm(index) {
       document.getElementById(index).submit();
+    },
+    ordenaColuna(coluna){
+        this.ordemAuxCol = coluna;
+        if(this.ordemAux.toLowerCase() == "asc"){
+            this.ordemAux = "desc";
+        } else {
+            this.ordemAux = "asc";
+        }
     }
   },
-  computed:{
-      lista: function(){          
-          return this.itens.filter(res => {
-              for (let i = 0; i < res.length; i++) {
-              //A concatenação (res[i] + "") serve para garantir caso exista um campo do tipo inteiro para ser tratado como string
-              if ((res[i] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
-                return true
-              }
-            }            
-          });          
+  computed: {
+    lista: function() {
+      let ordem = this.ordemAux;
+      let ordemCol = this.ordemAuxCol;
+      ordem = ordem.toLowerCase();
+      ordemCol = parseInt(ordemCol);
+
+      if (ordem == "asc") {
+        this.itens.sort(function(a, b) {
+          if (a[ordemCol] > b[ordemCol]) { return 1; }
+          if (a[ordemCol] < b[ordemCol]) { return -1;}
+          return 0;
+        });
+      } else {
+        this.itens.sort(function(a, b) {
+            if (a[ordemCol] < b[ordemCol]) { return 1;}
+            if (a[ordemCol] > b[ordemCol]) { return -1;}
+            return 0;
+        });
       }
+
+      return this.itens.filter(res => {
+        for (let i = 0; i < res.length; i++) {
+          //A concatenação (res[i] + "") serve para garantir caso exista um campo do tipo inteiro para ser tratado como string
+          if (
+            (res[i] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0
+          ) {
+            return true;
+          }
+        }
+      });
+    }
   }
 };
 </script>

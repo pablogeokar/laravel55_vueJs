@@ -5,6 +5,8 @@
 <pagina tamanho="10">
     <!-- Componente PAINEL -->    
     <painel titulo="Dashboard">
+        <!-- Componente Breadcrumbs -->
+        <breadcrumbs v-bind:lista="{{$listaBreadcrumbs}}"></breadcrumbs>
         <!-- Componente CAIXA -->
         <div class="col-md-4">        
             <caixa titulo="Artigos" qtd="80" cor="#2980b9" url="{{route('artigos.index')}}" icone="ion ion-pie-graph"></caixa>
