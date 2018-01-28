@@ -1,8 +1,8 @@
 <template>
     <div class="">        
-        <form v-bind:class="css" v-bind:action="action" v-bind:method="defineMetodo" v-bind:enctype="enctype">
-            <input v-if="alteraMethod" type="hidden" name="_method" v-bind:value="alteraMethod">
-            <input v-if="token" type="hidden" name="_token" v-bind:value="token">
+        <form :class="css" :action="action" :method="defineMetodo" :enctype="enctype">
+            <input v-if="alteraMethod" type="hidden" name="_method" :value="alteraMethod">
+            <input v-if="token" type="hidden" name="_token" :value="token">
                 <slot></slot>
         </form>
     </div>

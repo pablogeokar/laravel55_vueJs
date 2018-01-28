@@ -19,7 +19,12 @@ class ArtigosController extends Controller
             ["titulo"=> "Lista de Artigos", "url"=>""]
         ]);
 
-        return view('admin.artigos.index',compact('listaBreadcrumbs'));
+        $listaArtigos = json_encode([
+            ["id"=> 1, "titulo"=>"PHP OO", "descricao" =>"Curso de PHP OO"],
+            ["id"=> 2, "titulo"=>"VueJS", "descricao" =>"Curso de VueJs"]
+        ]);
+
+        return view('admin.artigos.index',compact('listaBreadcrumbs','listaArtigos'));
     }
 
     /**
