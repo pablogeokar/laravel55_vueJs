@@ -1429,7 +1429,10 @@ Vue.component('formulario', __webpack_require__(70));
 
 var app = new Vue({
     el: '#app',
-    store: store
+    store: store,
+    mounted: function mounted() {
+        document.getElementById('app').style.display = "block";
+    }
 });
 
 /***/ }),
@@ -45001,7 +45004,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["css", "action", "method", "enctype", "token"],
+  props: ["css", "action", "method", "enctype", "token", "id"],
   data: function data() {
     return {
       alteraMethod: ""
@@ -45039,6 +45042,7 @@ var render = function() {
       {
         class: _vm.css,
         attrs: {
+          id: _vm.id,
           action: _vm.action,
           method: _vm.defineMetodo,
           enctype: _vm.enctype
