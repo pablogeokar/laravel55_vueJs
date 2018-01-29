@@ -13,7 +13,7 @@
         </div>
         <!-- Componente CAIXA -->
         <div class="col-md-4">        
-            <caixa titulo="Usuários" qtd="1500" cor="#16a085" url="#" icone="ion ion-person-stalker"></caixa>
+            <caixa titulo="Usuários" qtd="1500" cor="#16a085" url="{{route('usuarios.index')}}" icone="ion ion-person-stalker"></caixa>
         </div>
         <!-- Componente CAIXA -->
         <div class="col-md-4">        

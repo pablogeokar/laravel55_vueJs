@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Artigo;
+use App\User;
 
-class ArtigosController extends Controller
+class UsuariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,22 +15,13 @@ class ArtigosController extends Controller
      */
     public function index()
     {
-        $listaBreadcrumbs = json_encode([
+         $listaBreadcrumbs = json_encode([
             ["titulo"=> "Home", "url"=>route('home')],
-            ["titulo"=> "Lista de Artigos", "url"=>""]
-        ]);
-        /*
-        $listaArtigos = json_encode([
-            ["id"=> 1, "titulo"=>"PHP OO", "descricao" =>"Curso de PHP OO"],
-            ["id"=> 2, "titulo"=>"VueJS", "descricao" =>"Curso de VueJs"]
+            ["titulo"=> "Lista de Usuários", "url"=>""]
         ]);
 
-        */
-        //$listaArtigos = json_encode(Artigo::all());
-
-        $listaArtigos = Artigo::select('id','titulo','descricao','data')->paginate(2);
-
-        return view('admin.artigos.index',compact('listaBreadcrumbs','listaArtigos'));
+        $listaModelo = User::select('id','name','email')->paginate(2);
+        return view('admin.usuarios.index',compact('listaBreadcrumbs','listaModelo'));
     }
 
     /**
@@ -53,18 +44,19 @@ class ArtigosController extends Controller
     {
         $data = $request->all();
         $validacao = \Validator::make($data, 
-            ['titulo' => 'required',
-            'descricao' => 'required',
-            'conteudo' => 'required',
-            'data' => 'required']
+            ['name' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
+            'email' => 'required|string|max:255|unique:users']
         );  
         
         if($validacao->fails()){
             return redirect()->back()->withErrors($validacao)->withInput();
         }
        
-       Artigo::create($data);
-       return redirect()->back();
+        $data['password'] = bcrypt($data['password']);
+
+        User::create($data);
+        return redirect()->back();
     }
 
     /**
@@ -75,7 +67,7 @@ class ArtigosController extends Controller
      */
     public function show($id)
     {
-        return Artigo::find($id);
+          return User::find($id);
     }
 
     /**
@@ -100,17 +92,18 @@ class ArtigosController extends Controller
     {
         $data = $request->all();
         $validacao = \Validator::make($data, 
-            ['titulo' => 'required',
-            'descricao' => 'required',
-            'conteudo' => 'required',
-            'data' => 'required']
+            ['name' => 'required|string|max:255',
+            'password' => 'required|string|min:6',
+            'email' => 'required|string|max:255|unique:users']
         );  
         
         if($validacao->fails()){
             return redirect()->back()->withErrors($validacao)->withInput();
         }
+       
+        $data['password'] = bcrypt($data['password']);
 
-       Artigo::find($id)->update($data);
+       User::find($id)->update($data);
        return redirect()->back();
     }
 
@@ -122,7 +115,7 @@ class ArtigosController extends Controller
      */
     public function destroy($id)
     {
-        Artigo::find($id)->delete();
+        User::find($id)->delete();
         return redirect()->back();
     }
 }
